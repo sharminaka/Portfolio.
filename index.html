@@ -552,6 +552,116 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ======== MOBILE RESPONSIVE ======== */
+  @media (max-width: 768px) {
+
+    /* Hide custom cursor on touch */
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+    .btn-primary, .btn-outline { cursor: pointer; }
+
+    /* NAV */
+    nav {
+      padding: 20px 24px;
+    }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.06em; }
+
+    /* HERO */
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 80px;
+    }
+    .hero-left {
+      padding: 48px 24px 40px;
+      order: 1;
+    }
+    .hero-right {
+      order: 2;
+      padding: 0 24px 60px;
+      min-height: 320px;
+    }
+    .hero-tag { font-size: 10px; margin-bottom: 20px; }
+    .hero-name { font-size: clamp(42px, 11vw, 64px); margin-bottom: 16px; }
+    .hero-title { font-size: 11px; letter-spacing: 0.14em; margin-bottom: 24px; }
+    .hero-desc { font-size: 13px; margin-bottom: 36px; max-width: 100%; }
+    .hero-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .btn-primary, .btn-outline { padding: 13px 28px; font-size: 11px; width: 100%; text-align: center; }
+
+    .hero-card { width: 240px; height: 300px; }
+    .floating-stat.top-left { top: 20px; left: 0; }
+    .floating-stat.bottom-right { bottom: 70px; right: 0; }
+    .stat-num { font-size: 24px; }
+    .stat-label { font-size: 9px; }
+
+    /* SECTIONS */
+    section { padding: 72px 24px; }
+
+    .section-title { font-size: clamp(28px, 8vw, 40px); margin-bottom: 40px; }
+
+    /* ABOUT */
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .about-text p { font-size: 13px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .skill-name { font-size: 11px; }
+
+    /* TIMELINE */
+    .timeline { padding-left: 28px; }
+    .timeline-dot { left: -32px; }
+    .timeline-meta { flex-direction: column; gap: 6px; }
+    .timeline-period { font-size: 10px; }
+    .timeline-role { font-size: 15px; }
+    .timeline-company { font-size: 11px; }
+    .timeline-points li { font-size: 12px; }
+    .timeline-item { margin-bottom: 48px; }
+
+    /* CASE STUDIES */
+    .case-study-grid { grid-template-columns: 1fr; gap: 2px; }
+    .case-card { padding: 32px 24px; }
+    .case-card.featured {
+      grid-column: span 1;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .case-visual { min-height: 160px; }
+    .case-title { font-size: 18px; }
+    .case-desc { font-size: 12px; }
+    .case-metrics { gap: 20px; flex-wrap: wrap; }
+    .metric-val { font-size: 24px; }
+    .case-number { font-size: 52px; right: 16px; }
+
+    /* CONTACT */
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .contact-tagline { font-size: clamp(28px, 8vw, 40px); }
+    .contact-item-value { font-size: 12px; }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 24px;
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+
+    /* Glow blobs — tone down on mobile */
+    .glow-blob { opacity: 0.07; }
+  }
+
+  @media (max-width: 400px) {
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 9px; }
+    .hero-name { font-size: 38px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-card { width: 200px; height: 260px; }
+  }
 </style>
 </head>
 <body>
@@ -875,7 +985,7 @@
         <a class="contact-item" href="#">
           <div>
             <div class="contact-item-label">LinkedIn</div>
-            <div class="contact-item-value">linkedin.com/in/sharminaka</div>
+            <div class="contact-item-value">www.linkedin.com/in/sharmina-k-aboobacker-068b94222</div>
           </div>
           <span class="contact-arrow">→</span>
         </a>
