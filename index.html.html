@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharmina K Aboobacker — Product & UX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --accent: #c8f560;
+    --accent2: #7c6af0;
+    --text: #f0ede8;
+    --muted: #7a7a8a;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    opacity: 0.5;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 48px;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(24px);
+    background: rgba(10,10,15,0.7);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--muted); text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 80px;
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .hero-desc {
+    font-size: 14px; line-height: 1.8;
+    color: rgba(240,237,232,0.7);
+    max-width: 440px;
+    margin-bottom: 56px;
+  }
+  .hero-cta {
+    display: flex; gap: 20px; align-items: center;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0f;
+    padding: 14px 32px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: none; text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(200,245,96,0.3);
+  }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 14px 32px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: none;
+  }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .hero-right {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-card {
+    width: 340px; height: 420px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+  }
+  .hero-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,15,0.6) 0%, transparent 60%);
+  }
+  .hero-card-badge {
+    position: absolute; bottom: 24px; left: 24px; right: 24px;
+    z-index: 2;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .badge-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+  .badge-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent);
+  }
+  .floating-stat {
+    position: absolute;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    backdrop-filter: blur(12px);
+  }
+  .floating-stat.top-left {
+    top: 80px; left: -40px;
+    animation: float1 4s ease-in-out infinite;
+  }
+  .floating-stat.bottom-right {
+    bottom: 100px; right: -40px;
+    animation: float2 5s ease-in-out infinite;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 10px; color: var(--muted); margin-top: 4px; letter-spacing: 0.08em; }
+
+  @keyframes float1 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes float2 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Deco grid lines */
+  .hero::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--accent2), transparent);
+    opacity: 0.2;
+  }
+
+  /* SECTION BASE */
+  section {
+    position: relative; z-index: 1;
+    padding: 120px 80px;
+  }
+  .section-tag {
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 64px;
+  }
+
+  /* ABOUT / SKILLS */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 15px; line-height: 1.9;
+    color: rgba(240,237,232,0.75);
+    margin-bottom: 20px;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .skill-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .skill-item:hover {
+    background: var(--surface2);
+    border-color: var(--accent2);
+  }
+  .skill-category {
+    font-size: 9px; letter-spacing: 0.15em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--text);
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .experience-section { background: var(--surface); }
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 64px;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.6s ease forwards;
+  }
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.5s; }
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .timeline-dot {
+    position: absolute; left: -44px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 16px var(--accent);
+  }
+  .timeline-meta {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .timeline-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--text);
+  }
+  .timeline-company {
+    font-size: 12px; color: var(--accent2);
+    margin-top: 4px; letter-spacing: 0.05em;
+  }
+  .timeline-period {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .timeline-points {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .timeline-points li {
+    font-size: 13px; line-height: 1.7;
+    color: rgba(240,237,232,0.7);
+    padding-left: 20px;
+    position: relative;
+  }
+  .timeline-points li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 11px;
+    top: 2px;
+  }
+
+  /* PORTFOLIO / CASE STUDY */
+  .case-study-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: none;
+  }
+  .case-card:hover { transform: translateY(-4px); }
+  .case-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    background: linear-gradient(135deg, var(--surface2), var(--surface));
+  }
+  .case-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .case-card:hover::before { transform: scaleX(1); }
+  .case-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 300;
+    color: rgba(200,245,96,0.08);
+    position: absolute; top: -10px; right: 24px;
+    line-height: 1;
+  }
+  .case-label {
+    font-size: 10px; letter-spacing: 0.16em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .case-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .case-desc {
+    font-size: 13px; line-height: 1.8;
+    color: rgba(240,237,232,0.65);
+    margin-bottom: 28px;
+  }
+  .case-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 28px;
+  }
+  .tag {
+    font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    color: var(--muted);
+  }
+  .case-metrics {
+    display: flex; gap: 32px;
+  }
+  .metric-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300;
+    color: var(--accent);
+  }
+  .metric-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .case-visual {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 200px;
+    position: relative; overflow: hidden;
+  }
+  .mockup-screen {
+    width: 90%; background: #1a1a24;
+    border-radius: 4px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .mockup-bar {
+    height: 6px; background: var(--accent);
+    border-radius: 2px; margin-bottom: 8px;
+    width: 40%;
+  }
+  .mockup-line {
+    height: 4px; background: rgba(255,255,255,0.08);
+    border-radius: 2px; margin-bottom: 6px;
+  }
+  .mockup-line:nth-child(3) { width: 80%; }
+  .mockup-line:nth-child(4) { width: 65%; }
+  .mockup-line:nth-child(5) { width: 90%; }
+  .mockup-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px; margin-top: 12px;
+  }
+  .mockup-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px; height: 40px;
+  }
+  .mockup-card:first-child { border-top: 2px solid var(--accent); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 3.5vw, 52px);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 32px;
+  }
+  .contact-tagline em { font-style: italic; color: var(--accent2); }
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
+  .contact-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: padding-left 0.2s, color 0.2s;
+    cursor: none;
+  }
+  .contact-item:hover { padding-left: 12px; color: var(--accent); }
+  .contact-item-label { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+  .contact-item-value { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 500; }
+  .contact-arrow { font-size: 18px; opacity: 0.4; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 80px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+  footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+
+  /* Ambient glow */
+  .glow-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: 0.12;
+  }
+  .glow-1 {
+    width: 600px; height: 600px;
+    background: var(--accent2);
+    top: -200px; right: -100px;
+  }
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: var(--accent);
+    bottom: 0; left: -100px;
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SKA</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 0;">
+  <div class="glow-blob glow-1"></div>
+  <div class="glow-blob glow-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">Product Owner · UI/UX Strategist</div>
+    <h1 class="hero-name">
+      Sharmina<br>
+      <em>Aboobacker</em>
+    </h1>
+    <p class="hero-title">Bridging Product Vision & User Experience</p>
+    <p class="hero-desc">
+      Crafting scalable digital products that convert — from e-commerce flows to cloud-based platforms. 3+ years turning complex requirements into intuitive, revenue-driving experiences.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="floating-stat top-left">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="hero-card">
+      <!-- Placeholder for photo -->
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#16161f 0%,#1f1f2e 50%,#111118 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:72px;color:rgba(200,245,96,0.15);line-height:1;">SKA</div>
+          <div style="font-size:10px;letter-spacing:0.2em;color:var(--muted);margin-top:8px;text-transform:uppercase;">Product Owner</div>
+        </div>
+      </div>
+      <div class="hero-card-badge">
+        <div>
+          <div class="badge-label">Current Role</div>
+          <div class="badge-value">Kybalion Nexus</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="badge-label">Since</div>
+          <div class="badge-value">Oct 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-stat bottom-right">
+      <div class="stat-num">9+</div>
+      <div class="stat-label">Enterprise Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">About</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title" style="margin-bottom:32px;">Designing products<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--accent2);">people love to use</em></h2>
+      <p>I'm a Product Owner with deep roots in cloud infrastructure and Agile delivery, now channelling that systems-thinking into user experience. I know how e-commerce products are built under the hood — and how to make them feel effortless on the surface.</p>
+      <p>At 2Cloud, I managed product backlogs for enterprise clients including Al-Tayer and Amazon Nuxeo. At Kybalion Nexus, I shaped the product vision for an experience-media platform from the ground up. I bring both strategic depth and execution precision.</p>
+      <p>Currently seeking UI/UX-focused product roles in e-commerce — where conversion, retention, and delight matter most.</p>
+    </div>
+    <div>
+      <div style="font-size:11px;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;margin-bottom:20px;">Core Competencies</div>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-category">Strategy</div>
+          <div class="skill-name">Product Ownership & Roadmapping</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Agile</div>
+          <div class="skill-name">Scrum · Backlog Management</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Cloud</div>
+          <div class="skill-name">AWS (EC2, S3, RDS, IAM)</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Delivery</div>
+          <div class="skill-name">CI/CD · DevOps Collaboration</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">UX</div>
+          <div class="skill-name">User Stories · Acceptance Criteria</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Analytics</div>
+          <div class="skill-name">KPI Monitoring · Risk Optimization</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Leadership</div>
+          <div class="skill-name">Cross-functional Team Management</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-category">Business</div>
+          <div class="skill-name">Stakeholder & Client Management</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience-section">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="section-tag">Experience</div>
+    <h2 class="section-title">Where I've <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--accent2);">built things</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <div>
+            <div class="timeline-role">Product Owner</div>
+            <div class="timeline-company">Kybalion Nexus — Experience Media Platform</div>
+          </div>
+          <div class="timeline-period">Oct 2025 — Present</div>
+        </div>
+        <ul class="timeline-points">
+          <li>Defined product vision and roadmap for a B2B media platform serving adventure parks and petting zoos across Kerala</li>
+          <li>Led business development identifying new partnership opportunities and revenue streams</li>
+          <li>Translated complex stakeholder needs into user stories, features, and technical specs</li>
+          <li>Drove market research, competitor analysis, and customer feedback loops for continuous iteration</li>
+          <li>Aligned product development with sales and marketing to support GTM strategy</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 16px var(--accent2);"></div>
+        <div class="timeline-meta">
+          <div>
+            <div class="timeline-role">Product Owner — AWS DevOps</div>
+            <div class="timeline-company">2Cloud (2Cloud FZE / 2Sahaba Solutions LLP) — UAE</div>
+          </div>
+          <div class="timeline-period">Aug 2023 — Oct 2025</div>
+        </div>
+        <ul class="timeline-points">
+          <li>Primary liaison between enterprise clients, C-suite, and DevOps engineering teams for AWS cloud delivery</li>
+          <li>Managed backlog for 9+ clients including Al-Tayer, Nahdi, Amazon Nuxeo, and Workfront</li>
+          <li>Converted business requirements into clear user stories and acceptance criteria for DevOps teams</li>
+          <li>Ran Agile ceremonies: sprint planning, backlog grooming, reviews, and retrospectives</li>
+          <li>Monitored AWS performance KPIs, incident reports, and delivery timelines in weekly executive reviews</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--muted);box-shadow:none;"></div>
+        <div class="timeline-meta">
+          <div>
+            <div class="timeline-role">Project Coordinator</div>
+            <div class="timeline-company">Ingenio Data FZ LLC — Dubai, UAE</div>
+          </div>
+          <div class="timeline-period">Jan 2022 — Jan 2023</div>
+        </div>
+        <ul class="timeline-points">
+          <li>Coordinated end-to-end indoor navigation/wayfinding projects from survey to deployment</li>
+          <li>Managed technical teams working on BLE beacons, Wi-Fi, RFID, and GPS systems</li>
+          <li>Maintained project schedules, milestones, and cross-team communication</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / CASE STUDIES -->
+<section id="work">
+  <div class="section-tag">Selected Work</div>
+  <h2 class="section-title">Product Case <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--accent2);">Studies</em></h2>
+
+  <div class="case-study-grid">
+
+    <!-- Featured -->
+    <div class="case-card featured reveal">
+      <div>
+        <div class="case-label">Featured Project · 2025–Present</div>
+        <h3 class="case-title">Kybalion Nexus — Experience Commerce Platform</h3>
+        <p class="case-desc">
+          Built the product strategy for a zero-upfront B2B SaaS platform that converts real-time adventure experiences into shareable media. Partners receive premium content, customers receive personalized memories, and the platform generates recurring revenue through digital upsells — a three-sided marketplace model.
+        </p>
+        <div class="case-tags">
+          <span class="tag">Product Strategy</span>
+          <span class="tag">B2B Platform</span>
+          <span class="tag">Media Commerce</span>
+          <span class="tag">Partnership Model</span>
+          <span class="tag">GTM</span>
+        </div>
+        <div class="case-metrics">
+          <div>
+            <div class="metric-val">3+</div>
+            <div class="metric-label">Trusted Partners</div>
+          </div>
+          <div>
+            <div class="metric-val">0</div>
+            <div class="metric-label">Upfront Cost to Partners</div>
+          </div>
+          <div>
+            <div class="metric-val">∞</div>
+            <div class="metric-label">Scalable Revenue Model</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-visual">
+        <div class="mockup-screen">
+          <div class="mockup-bar"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line" style="width:80%;"></div>
+          <div class="mockup-line" style="width:65%;"></div>
+          <div class="mockup-grid">
+            <div class="mockup-card"></div>
+            <div class="mockup-card" style="border-top:2px solid var(--accent2);"></div>
+            <div class="mockup-card"></div>
+            <div class="mockup-card" style="background:rgba(200,245,96,0.06);"></div>
+            <div class="mockup-card"></div>
+            <div class="mockup-card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card reveal">
+      <div class="case-number">02</div>
+      <div class="case-label">Enterprise · 2023–2025</div>
+      <h3 class="case-title">Multi-Client AWS Cloud Product Suite</h3>
+      <p class="case-desc">
+        Owned backlog and product delivery for 9+ enterprise clients across retail, gaming, and learning verticals on AWS infrastructure. Ensured SLA adherence and continuous delivery through Agile/Scrum practices.
+      </p>
+      <div class="case-tags">
+        <span class="tag">Backlog Management</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Agile / Scrum</span>
+        <span class="tag">SLA</span>
+      </div>
+      <div class="case-metrics">
+        <div>
+          <div class="metric-val">9+</div>
+          <div class="metric-label">Enterprise Clients</div>
+        </div>
+        <div>
+          <div class="metric-val">2yr</div>
+          <div class="metric-label">Sustained Delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-card reveal">
+      <div class="case-number">03</div>
+      <div class="case-label">Navigation · 2022–2023</div>
+      <h3 class="case-title">Indoor Navigation UX Coordination</h3>
+      <p class="case-desc">
+        Coordinated end-to-end delivery of indoor wayfinding experiences for large-scale facilities. Bridged technical teams (BLE, Wi-Fi, RFID) with client-facing UX requirements and deployment planning.
+      </p>
+      <div class="case-tags">
+        <span class="tag">Wayfinding UX</span>
+        <span class="tag">BLE / RFID</span>
+        <span class="tag">Project Coordination</span>
+        <span class="tag">Floor-plan Mapping</span>
+      </div>
+      <div class="case-metrics">
+        <div>
+          <div class="metric-val">100%</div>
+          <div class="metric-label">On-time Delivery</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div>
+      <div class="section-tag">Contact</div>
+      <h2 class="contact-tagline">Let's build something <em>worth using</em></h2>
+      <p style="font-size:14px;line-height:1.8;color:rgba(240,237,232,0.65);max-width:400px;">
+        Open to Product Owner, UX Strategy, and e-commerce product roles. Based in Kerala, open to remote and hybrid opportunities.
+      </p>
+    </div>
+    <div>
+      <div class="contact-links">
+        <a class="contact-item" href="mailto:sharminaka56@gmail.com">
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">sharminaka56@gmail.com</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-item" href="tel:+918848638868">
+          <div>
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-value">+91 88486 38868</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-item" href="#">
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-value">Mananthavady, Kerala, India</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-item" href="#">
+          <div>
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-value">linkedin.com/in/sharminaka</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Sharmina K Aboobacker — Product Owner & UX Strategist</p>
+  <p style="color:var(--accent);font-size:10px;letter-spacing:0.12em;">AVAILABLE FOR OPPORTUNITIES</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
